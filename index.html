@@ -492,7 +492,7 @@
                 this.droneRing2 = new THREE.Mesh(ringGeo2, ringMat);
                 this.droneGroup.add(this.droneRing2);
 
-                const droneX = this.width < 768 ? 0 : 3.5;
+                const droneX = 0;
                 const droneY = this.width < 768 ? 3 : 1.5;
                 this.droneGroup.position.set(droneX, droneY, -1);
                 this.scene.add(this.droneGroup);
@@ -537,7 +537,7 @@
                     if (this.droneGroup) this.droneGroup.position.set(0, 3, -2);
                 } else {
                     this.camera.position.z = 5;
-                    if (this.droneGroup) this.droneGroup.position.set(3.5, 1.5, -1);
+                    if (this.droneGroup) this.droneGroup.position.set(0, 1.5, -1);
                 }
             }
 
