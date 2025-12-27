@@ -1,0 +1,414 @@
+:root {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+    --accent-color: #00f3ff;
+    --secondary-color: #1a1a1a;
+    --font-main: 'Outfit', sans-serif;
+    --nav-height: 80px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: transparent;
+    /* Allow 3D canvas to show through */
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+}
+
+/* 3D Canvas */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+    /* Fallback if 3D fails */
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--nav-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    z-index: 100;
+    background: rgba(5, 5, 5, 0.5);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+/* Hide logo text on very small screens to prevent overflow */
+@media (max-width: 480px) {
+    .logo-text {
+        display: none;
+    }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+/* Contact Links Styling */
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #888;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--accent-color);
+}
+
+.contact-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-color);
+}
+
+/* Content Layout */
+#content {
+    position: relative;
+    z-index: 10;
+    padding-top: var(--nav-height);
+}
+
+.hero {
+    height: calc(100vh - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    pointer-events: none;
+    /* Let clicks pass through to 3D if needed, but text needs pointer-events auto */
+}
+
+.hero>* {
+    pointer-events: auto;
+}
+
+.hero-title {
+    font-size: 5rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #fff, #888);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    /* Hidden for GSAP reveal */
+    transform: translateY(30px);
+    animation: fadeUp 1s ease forwards 0.5s;
+}
+
+/* --- End of Spline Style Reversion --- */
+.highlight {
+    color: var(--accent-color);
+    -webkit-text-fill-color: var(--accent-color);
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button:hover {
+    background: var(--accent-color);
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+}
+
+.info-section {
+    min-height: 50vh;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Responsive Design --- */
+
+/* Mobile Nav Overlay (Global Definition) */
+.mobile-menu-btn {
+    display: none;
+    font-size: 2rem;
+    color: var(--text-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 150;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-nav-overlay.active {
+    transform: translateX(0);
+}
+
+.mobile-nav-overlay a {
+    font-size: 2rem;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Tablet & Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .navbar {
+        padding: 0 1.5rem;
+    }
+
+    /* Hide standard nav, show mobile btn */
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Grid Layouts to Single Column */
+    .info-section>div>div {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    .info-section {
+        padding: 10% 5%;
+    }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .cta-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero>div {
+        flex-direction: column;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Floating Contact Icons (Premium Design) --- */
+.floating-contact-wrap {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+}
+
+.floating-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.floating-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.floating-icon:hover {
+    transform: scale(1.1) translateY(-5px);
+}
+
+.floating-icon.whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.floating-icon.facebook {
+    background: linear-gradient(135deg, #1877F2 0%, #0C4D9D 100%);
+}
+
+.floating-icon.call {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #00a8b5 100%);
+}
+
+.floating-icon:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* Tooltip Styling */
+.floating-icon::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 80px;
+    background: rgba(10, 10, 10, 0.95);
+    color: var(--accent-color);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: 1px solid var(--accent-color);
+    transform: translateX(10px);
+}
+
+.floating-icon:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes softFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.floating-icon {
+    animation: softFloat 4s ease-in-out infinite;
+}
+
+.floating-icon.whatsapp {
+    animation-delay: 0s;
+}
+
+.floating-icon.facebook {
+    animation-delay: 1s;
+}
+
+.floating-icon.call {
+    animation-delay: 2.3s;
+}
+
+@media (max-width: 768px) {
+    .floating-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .floating-icon svg {
+        width: 25px;
+        height: 25px;
+    }
+}
