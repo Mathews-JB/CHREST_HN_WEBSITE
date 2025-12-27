@@ -68,8 +68,7 @@
 
         <!-- Visual Services Grid -->
         <section style="padding: 5%;">
-            <div class="responsive-grid"
-                style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 6rem; align-items: center;">
+            <div class="responsive-grid grid-2" style="margin-bottom: 6rem; align-items: center;">
                 <div class="reveal-text">
                     <h2 style="font-size: 2rem; margin-bottom: 1rem;">NEXT-GEN <span
                             style="color: var(--accent-color);">APP DEVELOPMENT</span></h2>
@@ -86,8 +85,7 @@
                 </div>
             </div>
 
-            <div class="responsive-grid"
-                style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 6rem; align-items: center; direction: rtl;">
+            <div class="responsive-grid grid-2" style="margin-bottom: 6rem; align-items: center; direction: rtl;">
                 <div class="reveal-text" style="direction: ltr;">
                     <h2 style="font-size: 2rem; margin-bottom: 1rem;">FORTIFIED <span
                             style="color: var(--accent-color);">NETWORK SECURITY</span></h2>
@@ -104,8 +102,7 @@
                 </div>
             </div>
 
-            <div class="responsive-grid"
-                style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 6rem; align-items: center;">
+            <div class="responsive-grid grid-2" style="margin-bottom: 6rem; align-items: center;">
                 <div class="reveal-text">
                     <h2 style="font-size: 2rem; margin-bottom: 1rem;">PREMIUM <span
                             style="color: var(--accent-color);">GRAPHIC DESIGNING</span></h2>
@@ -145,8 +142,7 @@
         </section>
 
         <section class="info-section">
-            <div
-                style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem;">
+            <div style="max-width: 1200px; margin: 0 auto;" class="grid-2">
                 <!-- Service Card 1: Development -->
                 <div
                     style="background: rgba(10,10,10,0.8); border: 1px solid #333; padding: 3rem; transition: transform 0.3s ease; position: relative; overflow: hidden;">
@@ -301,7 +297,7 @@
 
                 // Camera
                 this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
-                this.camera.position.z = 5;
+                this.camera.position.z = this.width < 768 ? 8 : 5;
 
                 // Renderer
                 this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -482,6 +478,12 @@
                 this.camera.aspect = this.width / this.height;
                 this.camera.updateProjectionMatrix();
                 this.renderer.setSize(this.width, this.height);
+
+                if (this.width < 768) {
+                    this.camera.position.z = 8;
+                } else {
+                    this.camera.position.z = 5;
+                }
             }
 
             animate = () => {

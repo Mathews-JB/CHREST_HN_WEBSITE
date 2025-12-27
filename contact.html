@@ -59,12 +59,14 @@
         }
     </script>
     <main id="content">
-        <section class="hero" style="justify-content: center; align-items: center; text-align: center;">
+        <section class="hero"
+            style="min-height: 100vh; height: auto; padding: var(--nav-height) 5% 5% 5%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
             <p class="hero-subtitle">READY TO START?</p>
-            <h1 class="hero-title">LET'S BUILD<br><span class="highlight">THE FUTURE</span></h1>
+            <h1 class="hero-title" style="margin-bottom: 2rem;">LET'S BUILD<br><span class="highlight">THE FUTURE</span>
+            </h1>
 
             <div
-                style="background: rgba(10,10,10,0.9); padding: 3rem; border: 1px solid var(--accent-color); max-width: 600px; width: 100%; margin-top: 3rem; backdrop-filter: blur(10px);">
+                style="background: rgba(10,10,10,0.9); padding: 2rem; border: 1px solid var(--accent-color); max-width: 600px; width: 100%; backdrop-filter: blur(10px); border-radius: 10px;">
                 <div style="display: flex; flex-direction: column; gap: 2rem; text-align: left;">
 
                     <div style="display: flex; align-items: start; gap: 1.5rem;">
@@ -169,7 +171,7 @@
 
                 // Camera
                 this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
-                this.camera.position.z = 5;
+                this.camera.position.z = this.width < 768 ? 8 : 5;
 
                 // Renderer
                 this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -350,6 +352,12 @@
                 this.camera.aspect = this.width / this.height;
                 this.camera.updateProjectionMatrix();
                 this.renderer.setSize(this.width, this.height);
+
+                if (this.width < 768) {
+                    this.camera.position.z = 8;
+                } else {
+                    this.camera.position.z = 5;
+                }
             }
 
             animate = () => {

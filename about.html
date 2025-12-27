@@ -65,8 +65,7 @@
         </section>
 
         <!-- Vision Section -->
-        <section class="responsive-grid"
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 5%; align-items: center;">
+        <section class="responsive-grid grid-2" style="padding: 5%;">
             <div class="reveal-text">
                 <img src="assets/about_team_collaboration.png" alt="Team Collaboration"
                     style="width: 100%; border-radius: 10px; box-shadow: 0 0 30px rgba(0,243,255,0.2);">
@@ -111,7 +110,7 @@
                     Marketing, and Expert Hardware Engineering to businesses and individuals alike.
                 </p>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="grid-2" style="margin-bottom: 4rem;">
                     <div>
                         <h3 style="font-size: 2rem; color: var(--accent-color); margin-bottom: 1rem;">Our Mission</h3>
                         <p style="line-height: 1.8; color: #aaa;">
@@ -172,7 +171,7 @@
 
                 // Camera
                 this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
-                this.camera.position.z = 5;
+                this.camera.position.z = this.width < 768 ? 8 : 5;
 
                 // Renderer
                 this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -353,6 +352,12 @@
                 this.camera.aspect = this.width / this.height;
                 this.camera.updateProjectionMatrix();
                 this.renderer.setSize(this.width, this.height);
+
+                if (this.width < 768) {
+                    this.camera.position.z = 8;
+                } else {
+                    this.camera.position.z = 5;
+                }
             }
 
             animate = () => {

@@ -238,8 +238,34 @@ body {
     font-weight: 700;
 }
 
+/* Grid Utilities */
+.grid-2,
+.grid-3 {
+    display: grid;
+    gap: 4rem;
+    align-items: center;
+}
+
+.grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 /* Tablet & Mobile (max-width: 768px) */
 @media (max-width: 768px) {
+    .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+        text-align: center;
+    }
+
+    .hero>div {
+        justify-content: center;
+    }
+
     .hero-title {
         font-size: 3.5rem;
     }
@@ -262,13 +288,28 @@ body {
     }
 
     /* Grid Layouts to Single Column */
-    .info-section>div>div {
+    .grid-2,
+    .grid-3 {
         grid-template-columns: 1fr !important;
         gap: 2rem !important;
     }
 
     .info-section {
         padding: 10% 5%;
+    }
+
+    .info-section h2 {
+        font-size: 2.5rem !important;
+    }
+
+    .info-section h3 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Reverse columns for RTL sections on mobile */
+    .responsive-grid[style*="direction: rtl"] {
+        display: flex !important;
+        flex-direction: column-reverse !important;
     }
 }
 
@@ -285,12 +326,12 @@ body {
         margin-bottom: 0.5rem;
     }
 
-    .hero>div {
-        flex-direction: column;
-    }
-
     .logo {
         font-size: 1.2rem;
+    }
+
+    .logo-text {
+        font-size: 0.7rem;
     }
 }
 
