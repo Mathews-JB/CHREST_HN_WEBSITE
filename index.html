@@ -492,8 +492,8 @@
                 this.droneRing2 = new THREE.Mesh(ringGeo2, ringMat);
                 this.droneGroup.add(this.droneRing2);
 
-                const droneX = this.width < 768 ? 1.5 : 3.5;
-                const droneY = this.width < 768 ? 2.5 : 1.5;
+                const droneX = this.width < 768 ? 0 : 3.5;
+                const droneY = this.width < 768 ? 3 : 1.5;
                 this.droneGroup.position.set(droneX, droneY, -1);
                 this.scene.add(this.droneGroup);
             }
@@ -525,63 +525,65 @@
                     this.scrollY = window.scrollY;
                 });
             }
-
+            onWindowResize() {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
                 this.camera.aspect = this.width / this.height;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.width, this.height);
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(this.width, this.height);
 
-        // Adjust camera for mobile to keep objects in view
-        if (this.width < 768) {
-            this.camera.position.z = 10; // Zoom out more for mobile
-            if (this.droneGroup) this.droneGroup.position.set(1.5, 2.5, -1);
-        } else {
-            this.camera.position.z = 5;
-            if (this.droneGroup) this.droneGroup.position.set(3.5, 1.5, -1);
-        }
-
-        animate = () => {
-            requestAnimationFrame(this.animate);
-            const time = Date.now() * 0.001;
-
-            if (this.laptopGroup) {
-                this.targetRotationX = this.mouseY * 0.5;
-                this.targetRotationY = this.mouseX * 0.5;
-                this.laptopGroup.rotation.x += (this.targetRotationX - this.laptopGroup.rotation.x) * 0.05;
-                this.laptopGroup.rotation.y += (this.targetRotationY - this.laptopGroup.rotation.y) * 0.05;
-
-                const scrollFactor = this.scrollY * 0.002;
-                this.laptopGroup.position.z = -scrollFactor * 2;
-                this.laptopGroup.rotation.x += scrollFactor * 0.5;
-                this.laptopGroup.position.y = Math.sin(time) * 0.1 + (scrollFactor * 0.5);
+                if (this.width < 768) {
+                    this.camera.position.z = 10;
+                    if (this.droneGroup) this.droneGroup.position.set(0, 3, -2);
+                } else {
+                    this.camera.position.z = 5;
+                    if (this.droneGroup) this.droneGroup.position.set(3.5, 1.5, -1);
+                }
             }
 
-            if (this.backgroundLaptops) {
-                this.backgroundLaptops.forEach((laptop, i) => {
-                    laptop.rotation.x += 0.01;
-                    laptop.rotation.y += 0.005;
-                    laptop.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
-                });
-            }
+            animate = () => {
+                requestAnimationFrame(this.animate);
+                const time = Date.now() * 0.001;
 
-            if (this.droneGroup) {
-                this.droneGroup.rotation.y = Date.now() * 0.0005;
-                this.droneGroup.position.y = 2 + Math.sin(Date.now() * 0.002) * 0.5;
-                this.droneRing1.rotation.x = Date.now() * 0.002;
-                this.droneRing1.rotation.y = Date.now() * 0.001;
-                this.droneRing2.rotation.z = -Date.now() * 0.0015;
-            }
+                if (this.laptopGroup) {
+                    this.targetRotationX = this.mouseY * 0.5;
+                    this.targetRotationY = this.mouseX * 0.5;
+                    this.laptopGroup.rotation.x += (this.targetRotationX - this.laptopGroup.rotation.x) * 0.05;
+                    this.laptopGroup.rotation.y += (this.targetRotationY - this.laptopGroup.rotation.y) * 0.05;
 
-            if (this.orbitingTextRing) {
-                this.orbitingTextRing.rotation.y = -Date.now() * 0.0005; // Spin slowly
-            }
+                    const scrollFactor = this.scrollY * 0.002;
+                    this.laptopGroup.position.z = -scrollFactor * 2;
+                    this.laptopGroup.rotation.x += scrollFactor * 0.5;
+                    this.laptopGroup.position.y = Math.sin(time) * 0.1 + (scrollFactor * 0.5);
+                }
 
-            if (this.particlesMesh) {
-                this.particlesMesh.rotation.y = -Date.now() * 0.0001;
-                this.particlesMesh.rotation.x += (this.mouseY * 0.2 - this.particlesMesh.rotation.x) * 0.02;
-                this.particlesMesh.position.y = this.scrollY * 0.001;
+                if (this.backgroundLaptops) {
+                    this.backgroundLaptops.forEach((laptop, i) => {
+                        laptop.rotation.x += 0.01;
+                        laptop.rotation.y += 0.005;
+                        laptop.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
+                    });
+                }
+
+                if (this.droneGroup) {
+                    this.droneGroup.rotation.y = Date.now() * 0.0005;
+                    this.droneGroup.position.y = 2 + Math.sin(Date.now() * 0.002) * 0.5;
+                    this.droneRing1.rotation.x = Date.now() * 0.002;
+                    this.droneRing1.rotation.y = Date.now() * 0.001;
+                    this.droneRing2.rotation.z = -Date.now() * 0.0015;
+                }
+
+                if (this.orbitingTextRing) {
+                    this.orbitingTextRing.rotation.y = -Date.now() * 0.0005; // Spin slowly
+                }
+
+                if (this.particlesMesh) {
+                    this.particlesMesh.rotation.y = -Date.now() * 0.0001;
+                    this.particlesMesh.rotation.x += (this.mouseY * 0.2 - this.particlesMesh.rotation.x) * 0.02;
+                    this.particlesMesh.position.y = this.scrollY * 0.001;
+                }
+                this.renderer.render(this.scene, this.camera);
             }
-            this.renderer.render(this.scene, this.camera);
-        }
         }
 
         document.addEventListener('DOMContentLoaded', () => {

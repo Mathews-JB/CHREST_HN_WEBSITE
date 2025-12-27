@@ -440,7 +440,9 @@
                 this.droneRing2 = new THREE.Mesh(ringGeo2, ringMat);
                 this.droneGroup.add(this.droneRing2);
 
-                this.droneGroup.position.set(3.5, 1.5, -1);
+                const droneX = this.width < 768 ? 0 : 3.5;
+                const droneY = this.width < 768 ? 3 : 1.5;
+                this.droneGroup.position.set(droneX, droneY, -1);
                 this.scene.add(this.droneGroup);
             }
 
