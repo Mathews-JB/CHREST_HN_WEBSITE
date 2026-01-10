@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREST HN TECH AND INNOVATIONS | Future Ready</title>
+    <meta name="description"
+        content="Leading the charge in digital transformation. CREST HN provides enterprise-grade hardware, bespoke software solutions, and strategic innovation consulting.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "gsap": "https://unpkg.com/gsap@3.12.5/index.js"
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Premium Cyber Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-circle-1"></div>
+            <div class="loader-circle-2"></div>
+            <div class="loader-line"></div>
+            <div class="loader-logo-wrap">
+                <img src="assets/logo.jpg" alt="CREST Logo">
+            </div>
+        </div>
+        <div class="loader-text-container">
+            <div class="loader-status">SYSTEM INITIALIZATION</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar" id="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("Preloader script running");
+            const bar = document.getElementById('loader-bar');
+
+            // Simulation of loading progress
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    // Fade out
+                    document.body.classList.add('loaded');
+                    // Hide after transition
+                    setTimeout(() => {
+                        const preloader = document.getElementById('preloader');
+                        if (preloader) preloader.style.display = 'none';
+                    }, 800); // Matches CSS transition time
+                } else {
+                    width += Math.random() * 5;
+                    if (width > 100) width = 100;
+                    if (bar) bar.style.width = width + '%';
+                }
+            }, 50); // Slightly faster
+        });
+    </script>
+
+    <div id="canvas-container"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="CREST HN Logo" class="nav-logo">
+            <span class="logo-text">CREST HN</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+        <a href="about.html" onclick="toggleMobileMenu()">About Us</a>
+        <a href="services.html" onclick="toggleMobileMenu()">Services</a>
+        <a href="events.html" onclick="toggleMobileMenu()">Events</a>
+        <a href="projects.html" onclick="toggleMobileMenu()">Projects</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+        <button onclick="toggleMobileMenu()"
+            style="background:none; border:none; color:#fff; font-size:3rem; margin-top:2rem;">&times;</button>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            const btn = document.querySelector('.mobile-menu-btn');
+            btn.innerHTML = nav.classList.contains('active') ? ' ' : '☰';
+        }
+    </script>
+
+    <main id="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <p class="hero-subtitle reveal-text">WELCOME TO THE NEXT ERA</p>
+            <h1 class="hero-title reveal-text">CREST HN TECH<br><span class="highlight">AND INNOVATIONS</span></h1>
+            <p style="max-width: 600px; margin-bottom: 2rem; font-size: 1.1rem; color: #ccc;">
+                Orchestrating digital dominance in Zambia. We specialize in bespoke Software, Web & Mobile Applications,
+                aggressive Digital Marketing, and precision Hardware Engineering.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="services.html" class="cta-button">Our Expertise</a>
+                <a href="contact.html" class="cta-button" style="border-color: #fff; color: #fff;">Contact Us</a>
+            </div>
+        </section>
+
+        <!-- Spacer for scroll interaction (Parallax) -->
+        <div class="scroll-spacer" style="height: 30vh;"></div>
+
+        <!-- Big Information Section -->
+        <section class="info-section">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <h2 style="font-size: 4rem; font-weight: 900; margin-bottom: 2rem; color: #fff;">ZAMBIA'S PREMIER
+                    <br><span class="highlight">TECH INNOVATORS</span>
+                </h2>
+
+                <div class="grid-2">
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--accent-color); margin-bottom: 1rem;">Digital & Business
+                            Growth</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.7; color: #bbb;">
+                            We build the future of your business. From <strong>Web & Mobile App Development</strong> to
+                            strategic <strong>Digital Marketing & Page Boosting</strong>, we create the digital
+                            infrastructure that drives growth.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 2rem; color: var(--accent-color); margin-bottom: 1rem;">Engineering &
+                            Hardware</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.7; color: #bbb;">
+                            Complete technical mastery. We offer expert <strong>Hardware Repair</strong>,
+                            <strong>Firmware Updates</strong>, <strong>Router Unlocking</strong>, and <strong>Mobile
+                                Phone Unlocking</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 6rem; text-align: center;">
+                    <h2 style="font-size: 3rem; margin-bottom: 2rem;">CORE COMPETENCIES</h2>
+                    <div style="display: flex; justify-content: center; gap: 1rem; opacity: 0.8; flex-wrap: wrap;">
+                        <h3 class="competence-badge">WEBSITE DESIGN</h3>
+                        <h3 class="competence-badge">APP DEVELOPMENT</h3>
+                        <h3 class="competence-badge">CORPORATE BRANDING</h3>
+                        <h3 class="competence-badge">SYSTEMS DEV</h3>
+                        <h3 class="competence-badge">DIGITAL TRAINING</h3>
+                        <h3 class="competence-badge">BUSINESS EMAIL</h3>
+                        <h3 class="competence-badge">PRODUCT-MARKET FIT</h3>
+                        <h3 class="competence-badge">REVENUE STREAMS</h3>
+                        <h3 class="competence-badge">SCALABILITY</h3>
+                        <h3 class="competence-badge">FINANCIAL MGMT</h3>
+                    </div>
+                </div>
+
+                <!-- NEW SECTION: Why Choose Us (With Image) -->
+
+                <div style="margin-top: 8rem;" class="grid-2 responsive-grid">
+                    <div class="reveal-text" style="display: flex; flex-direction: column; justify-content: center;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">WHY CHOOSE <span
+                                style="color: var(--accent-color);">CREST HN</span>?</h2>
+
+                        <!-- Dynamic Content Container -->
+                        <div id="why-choose-content" style="min-height: 200px; transition: opacity 0.5s ease-in-out;">
+                            <h3 id="why-title" style="font-size: 1.5rem; color: #fff; margin-bottom: 1rem;">
+                                Technical Mastery</h3>
+                            <p id="why-desc"
+                                style="font-size: 1.1rem; line-height: 1.8; color: #ccc; margin-bottom: 2rem;">
+                                We don't just follow trends; we define them. Our team combines deep technical
+                                expertise with
+                                creative innovation to deliver solutions that are not only functional but
+                                transformative.
+                            </p>
+                        </div>
+
+                        <a href="services.html" class="cta-button"
+                            style="align-self: flex-start; margin-top: 2rem;">Access Services</a>
+                    </div>
+                    <div class="reveal-text">
+                        <img id="why-image" src="assets/pexels-divinetechygirl-1181354.jpg" alt="Why Choose Crest"
+                            style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px; box-shadow: 0 0 30px rgba(0,243,255,0.2); transition: opacity 0.5s ease-in-out;">
+                    </div>
+                </div>
+
+                <script>
+                    const whyChooseData = [
+                        {
+                            title: "Technical Mastery",
+                            desc: "We don't just follow trends; we define them. Our team combines deep technical expertise with creative innovation to deliver solutions that are not only functional but transformative.",
+                            image: "assets/software_code_digital_hologram.png"
+                        },
+                        {
+                            title: "Business Growth Engines",
+                            desc: "Our strategies are designed for one thing: ROI. From targeted digital marketing to revenue stream optimization, we engineer growth directly into your business DNA.",
+                            image: "assets/product_market_fit_analysis.png"
+                        },
+                        {
+                            title: "Collaborative Excellence",
+                            desc: "We work as an extension of your team. Transparent communication, agile methodologies, and a shared vision ensure we build exactly what your business needs to succeed.",
+                            image: "assets/about_team_collaboration.png"
+                        },
+                        {
+                            title: "Premium Design Identity",
+                            desc: "First impressions matter. We craft world-class UI/UX and brand identities that position your business as a premium market leader from day one.",
+                            image: "assets/ui_ux_design_concept.png"
+                        }
+                    ];
+
+                    let currentIndex = 0;
+                    const titleEl = document.getElementById('why-title');
+                    const descEl = document.getElementById('why-desc');
+                    const imageEl = document.getElementById('why-image');
+                    const contentEl = document.getElementById('why-choose-content');
+
+                    function updateWhyChooseSection() {
+                        // Fade out
+                        contentEl.style.opacity = '0';
+                        imageEl.style.opacity = '0';
+
+                        setTimeout(() => {
+                            currentIndex = (currentIndex + 1) % whyChooseData.length;
+                            const data = whyChooseData[currentIndex];
+
+                            titleEl.textContent = data.title;
+                            descEl.textContent = data.desc;
+                            imageEl.src = data.image;
+
+                            // Fade in
+                            contentEl.style.opacity = '1';
+                            imageEl.style.opacity = '1';
+                        }, 500);
+                    }
+
+                    // Start loop
+                    setInterval(updateWhyChooseSection, 5000);
+                </script>
+
+                <!-- NEW SECTION: Featured Services (With Images) -->
+                <div style="margin-top: 8rem;">
+                    <h2 style="font-size: 3rem; margin-bottom: 4rem; text-align: center;" class="reveal-text">
+                        OUR <span style="color: var(--accent-color);">ECOSYSTEM</span></h2>
+
+                    <div class="grid-3">
+                        <!-- Card 1 -->
+                        <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);"
+                            class="reveal-text">
+                            <img src="assets/pexels-jeshoots-com-147458-530024.jpg" alt="Hardware Lab"
+                                style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1.5rem;">
+                            <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 1rem;">Precision Hardware
+                            </h3>
+                            <p style="color: #aaa; line-height: 1.6;">State-of-the-art repair and maintenance
+                                for all
+                                your devices. From micro-soldering to component level diagnostics.</p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);"
+                            class="reveal-text">
+                            <img src="assets/pexels-pixabay-265087.jpg" alt="Digital Growth"
+                                style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1.5rem;">
+                            <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 1rem;">Digital Dominance
+                            </h3>
+                            <p style="color: #aaa; line-height: 1.6;">Data-driven marketing strategies designed
+                                to scale
+                                your brand visibility and ROI exponentially.</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);"
+                            class="reveal-text">
+                            <img src="assets/pexels-joshsorenson-1714208.jpg" alt="Brand Identity"
+                                style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1.5rem;">
+                            <h3 style="font-size: 1.5rem; color: #fff; margin-bottom: 1rem;">Iconic Brand
+                                Identity</h3>
+                            <p style="color: #aaa; line-height: 1.6;">We craft unique and memorable brand
+                                identities
+                                that
+                                resonate with your audience and leave a lasting impression.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer style="padding: 4rem 5%; background: #000; border-top: 1px solid #222; margin-top: 4rem;">
+                    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                        <div>
+                            <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">CREST HN</h4>
+                            <p style="color: #666;">Tech & Innovations. Zambia.</p>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 1rem;">Services</h4>
+                            <ul style="list-style: none; color: #888;">
+                                <li>Website & App Dev</li>
+                                <li>Corporate Branding</li>
+                                <li>Digital Training</li>
+                                <li>Business Email</li>
+                                <li>Systems Development</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 1rem;">Connect</h4>
+
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/260773465434?text=Hello%20CREST%20HN%2C%20I'm%20interested%20in%20your%20tech%20services%20and%20innovations.%20Can%20we%20discuss%3F"
+                                target="_blank" class="contact-link">
+                                <svg class="contact-icon" viewBox="0 0 24 24">
+                                    <path
+                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                                </svg>
+                                WhatsApp: 0773 465 434
+                            </a>
+
+                            <!-- Call -->
+                            <a href="tel:0777771064" class="contact-link">
+                                <svg class="contact-icon" viewBox="0 0 24 24">
+                                    <path
+                                        d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.49-5.48-4.14-6.97-6.97l1.97-1.57c.26-.26.35-.62.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                                </svg>
+                                Call: 0777 771 064
+                            </a>
+
+                            <!-- Email -->
+                            <a href="mailto:cresthntech@gmail.com?subject=Inquiry%20to%20CREST%20HN&body=Hello%20CREST%20HN%20Team%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Please%20get%20back%20to%20me.%0A%0AThank%20you."
+                                class="contact-link">
+                                <svg class="contact-icon" viewBox="0 0 24 24">
+                                    <path
+                                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                                </svg>
+                                cresthntech@gmail.com
+                            </a>
+
+                            <!-- Facebook -->
+                            <a href="https://m.me/61581531204112" target="_blank" class="contact-link">
+                                <svg class="contact-icon" viewBox="0 0 24 24">
+                                    <path
+                                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V1.74c-.25-.03-1.08-.1-2.09-.1-2.12 0-3.5 1.29-3.5 3.66v2.5h-2.25v4H12v10.5h2V13.5z" />
+                                </svg>
+                                Facebook Page
+                            </a>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 3rem; color: #444; font-size: 0.8rem;">
+                        &copy; 2024 CREST HN TECH AND INNOVATIONS. All Rights Reserved.
+                    </div>
+                </footer>
+    </main>
+
+    <!-- Scroll Animation Observer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-text').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <!-- Main Logic: Inlined to prevent CORS errors when opening local files -->
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+        import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+        import gsap from 'https://unpkg.com/gsap@3.12.5/index.js';
+
+        class SceneManager {
+            constructor(container) {
+                this.container = container;
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+
+                this.init();
+                this.createObjects();
+                this.animate();
+                this.setupResize();
+                this.setupScroll();
+
+                // Trigger entrance
+                this.introAnimation();
+            }
+
+            init() {
+                // Scene
+                this.scene = new THREE.Scene();
+                // Fog for depth
+                this.scene.fog = new THREE.FogExp2(0x050505, 0.002);
+
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
+                this.camera.position.z = this.width < 768 ? 8 : 5;
+
+                // Renderer
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                this.renderer.setSize(this.width, this.height);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.renderer.setClearColor(0x000000, 0); // Transparent
+                this.container.appendChild(this.renderer.domElement);
+
+                // Lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                this.scene.add(ambientLight);
+
+                const pointLight = new THREE.PointLight(0x00f3ff, 2, 50);
+                pointLight.position.set(2, 3, 4);
+                this.scene.add(pointLight);
+
+                const pointLight2 = new THREE.PointLight(0xff00ff, 2, 50);
+                pointLight2.position.set(-2, 3, -4);
+                this.scene.add(pointLight2);
+            }
+
+            createObjects() {
+                // --- High-Tech Laptop Group ---
+                this.laptopGroup = new THREE.Group();
+
+                // Materials
+                const chassisMat = new THREE.MeshStandardMaterial({
+                    color: 0x0a0a0a,
+                    roughness: 0.2,
+                    metalness: 0.9,
+                });
+                const keyMat = new THREE.MeshStandardMaterial({
+                    color: 0x050505,
+                    roughness: 0.5,
+                    metalness: 0.5
+                });
+                const screenBorderMat = new THREE.MeshStandardMaterial({
+                    color: 0x080808,
+                    roughness: 0.2,
+                    metalness: 0.8
+                });
+
+                // 1. Base
+                const baseGeo = new THREE.BoxGeometry(3, 0.1, 2);
+                this.laptopBase = new THREE.Mesh(baseGeo, chassisMat);
+                this.laptopGroup.add(this.laptopBase);
+
+                // 2. Keyboard
+                const keyGroup = new THREE.Group();
+                const keyGeo = new THREE.BoxGeometry(0.18, 0.05, 0.18);
+                for (let x = -1.2; x <= 1.2; x += 0.22) {
+                    for (let z = -0.5; z <= 0.5; z += 0.22) {
+                        const key = new THREE.Mesh(keyGeo, keyMat);
+                        key.position.set(x, 0.06, z);
+                        keyGroup.add(key);
+                    }
+                }
+                this.laptopBase.add(keyGroup);
+
+                // 3. Screen
+                this.screenGroup = new THREE.Group();
+                this.screenGroup.position.set(0, 0.05, -1);
+
+                const screenChassisGeo = new THREE.BoxGeometry(3, 2, 0.1);
+                const screenChassis = new THREE.Mesh(screenChassisGeo, screenBorderMat);
+                screenChassis.position.set(0, 1, 0);
+                this.screenGroup.add(screenChassis);
+
+                const displayGeo = new THREE.PlaneGeometry(2.8, 1.8);
+                const displayMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, side: THREE.DoubleSide });
+                this.laptopDisplay = new THREE.Mesh(displayGeo, displayMat);
+                this.laptopDisplay.position.set(0, 1, 0.06);
+                this.screenGroup.add(this.laptopDisplay);
+
+                this.screenGroup.rotation.x = 0;
+                this.laptopGroup.add(this.screenGroup);
+                this.scene.add(this.laptopGroup);
+
+                // --- Additional 3D Elements ---
+                this.createOrbitingText();
+                this.createBackgroundLaptops();
+                this.createRobotics();
+
+                // --- Environment ---
+                const gridHelper = new THREE.GridHelper(60, 60, 0x222222, 0x050505);
+                gridHelper.position.y = -2;
+                this.scene.add(gridHelper);
+
+                // Particles
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particlesCount = 800;
+                const posArray = new Float32Array(particlesCount * 3);
+                for (let i = 0; i < particlesCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 30;
+                }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.03,
+                    color: 0x00f3ff,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                });
+                this.particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                this.scene.add(this.particlesMesh);
+            }
+
+            createBackgroundLaptops() {
+                this.backgroundLaptops = [];
+                const geometry = new THREE.BoxGeometry(1.5, 0.05, 1);
+                const material = new THREE.MeshStandardMaterial({ color: 0x222222, wireframe: true });
+
+                for (let i = 0; i < 5; i++) {
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.x = (Math.random() - 0.5) * 15;
+                    mesh.position.y = (Math.random() - 0.5) * 8;
+                    mesh.position.z = -2 - Math.random() * 5;
+                    mesh.rotation.x = Math.random() * Math.PI;
+                    mesh.rotation.y = Math.random() * Math.PI;
+                    this.scene.add(mesh);
+                    this.backgroundLaptops.push(mesh);
+                }
+            }
+
+            createOrbitingText() {
+                // Create canvas for text texture
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = 1024;
+                canvas.height = 128; // Narrow strip
+
+                // Text Settings
+                const text = "CREST HN TECH AND INNOVATIONS   •   CREST HN TECH AND INNOVATIONS   •   ";
+                context.font = "bold 48px 'Outfit', sans-serif";
+                context.fillStyle = "rgba(0, 243, 255, 1)"; // Accent Cyan
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+
+                // Draw text
+                context.fillText(text, canvas.width / 2, canvas.height / 2);
+
+                // Create Texture
+                const texture = new THREE.CanvasTexture(canvas);
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set(1, 1);
+
+                // Create Geometry (Cylinder open ended)
+                // Radius: 3.5 (around laptop), Height: 0.5
+                const geometry = new THREE.CylinderGeometry(3.5, 3.5, 0.5, 64, 1, true);
+                const material = new THREE.MeshBasicMaterial({
+                    map: texture,
+                    transparent: true,
+                    opacity: 0.9,
+                    side: THREE.DoubleSide,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+
+                this.orbitingTextRing = new THREE.Mesh(geometry, material);
+                // Tilt it slightly to look cool
+                this.orbitingTextRing.rotation.x = 0.2;
+                this.orbitingTextRing.rotation.z = 0.1;
+
+                this.laptopGroup.add(this.orbitingTextRing);
+            }
+
+            createRobotics() {
+                this.droneGroup = new THREE.Group();
+                const coreGeo = new THREE.IcosahedronGeometry(0.6, 1);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0xff00ff, emissive: 0xff00ff, emissiveIntensity: 2,
+                    roughness: 0.2, metalness: 1.0, flatShading: true
+                });
+                this.droneCore = new THREE.Mesh(coreGeo, coreMat);
+                this.droneGroup.add(this.droneCore);
+
+                const ringGeo = new THREE.TorusGeometry(1.0, 0.05, 8, 50);
+                const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.8 });
+                this.droneRing1 = new THREE.Mesh(ringGeo, ringMat);
+                this.droneGroup.add(this.droneRing1);
+
+                const ringGeo2 = new THREE.TorusGeometry(1.4, 0.02, 8, 50);
+                this.droneRing2 = new THREE.Mesh(ringGeo2, ringMat);
+                this.droneGroup.add(this.droneRing2);
+
+                const droneX = 0;
+                const droneY = this.width < 768 ? 3 : 1.5;
+                this.droneGroup.position.set(droneX, droneY, -1);
+                this.scene.add(this.droneGroup);
+            }
+
+            introAnimation() {
+                if (!this.laptopGroup) return;
+                this.laptopGroup.position.z = -5;
+                this.laptopGroup.rotation.x = 0.5;
+                this.screenGroup.rotation.x = Math.PI / 2;
+
+                gsap.to(this.laptopGroup.position, { z: 0, duration: 2, ease: "power3.out" });
+                gsap.to(this.screenGroup.rotation, { x: -0.5, duration: 2.5, delay: 0.5, ease: "power2.inOut" });
+                gsap.to(this.laptopGroup.rotation, { x: 0, duration: 2, ease: "power2.out" });
+            }
+
+            setupResize() {
+                window.addEventListener('resize', this.onWindowResize.bind(this));
+                this.mouseX = 0;
+                this.mouseY = 0;
+                window.addEventListener('mousemove', (event) => {
+                    this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
+            }
+
+            setupScroll() {
+                this.scrollY = 0;
+                window.addEventListener('scroll', () => {
+                    this.scrollY = window.scrollY;
+                });
+            }
+            onWindowResize() {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                this.camera.aspect = this.width / this.height;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(this.width, this.height);
+
+                if (this.width < 768) {
+                    this.camera.position.z = 10;
+                    if (this.droneGroup) this.droneGroup.position.set(0, 3, -2);
+                } else {
+                    this.camera.position.z = 5;
+                    if (this.droneGroup) this.droneGroup.position.set(0, 1.5, -1);
+                }
+            }
+
+            animate = () => {
+                requestAnimationFrame(this.animate);
+                const time = Date.now() * 0.001;
+
+                if (this.laptopGroup) {
+                    this.targetRotationX = this.mouseY * 0.5;
+                    this.targetRotationY = this.mouseX * 0.5;
+                    this.laptopGroup.rotation.x += (this.targetRotationX - this.laptopGroup.rotation.x) * 0.05;
+                    this.laptopGroup.rotation.y += (this.targetRotationY - this.laptopGroup.rotation.y) * 0.05;
+
+                    const scrollFactor = this.scrollY * 0.002;
+                    this.laptopGroup.position.z = -scrollFactor * 2;
+                    this.laptopGroup.rotation.x += scrollFactor * 0.5;
+                    this.laptopGroup.position.y = Math.sin(time) * 0.1 + (scrollFactor * 0.5);
+                }
+
+                if (this.backgroundLaptops) {
+                    this.backgroundLaptops.forEach((laptop, i) => {
+                        laptop.rotation.x += 0.01;
+                        laptop.rotation.y += 0.005;
+                        laptop.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
+                    });
+                }
+
+                if (this.droneGroup) {
+                    this.droneGroup.rotation.y = Date.now() * 0.0005;
+                    this.droneGroup.position.y = 2 + Math.sin(Date.now() * 0.002) * 0.5;
+                    this.droneRing1.rotation.x = Date.now() * 0.002;
+                    this.droneRing1.rotation.y = Date.now() * 0.001;
+                    this.droneRing2.rotation.z = -Date.now() * 0.0015;
+                }
+
+                if (this.orbitingTextRing) {
+                    this.orbitingTextRing.rotation.y = -Date.now() * 0.0005; // Spin slowly
+                }
+
+                if (this.particlesMesh) {
+                    this.particlesMesh.rotation.y = -Date.now() * 0.0001;
+                    this.particlesMesh.rotation.x += (this.mouseY * 0.2 - this.particlesMesh.rotation.x) * 0.02;
+                    this.particlesMesh.position.y = this.scrollY * 0.001;
+                }
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvasContainer = document.getElementById('canvas-container');
+            const sceneManager = new SceneManager(canvasContainer);
+        });
+    </script>
+    <!-- Expanding Floating Contact Menu -->
+    <div class="fab-container">
+        <div class="fab-menu">
+            <a href="mailto:cresthntech@gmail.com?subject=Inquiry%20to%20CREST%20HN&body=Hello%20CREST%20HN%20Team%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Please%20get%20back%20to%20me.%0A%0AThank%20you."
+                class="fab-item email" data-label="Email Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+            </a>
+            <a href="tel:0777771064" class="fab-item call" data-label="Call Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.49-5.48-4.14-6.97-6.97l1.97-1.57c.26-.26.35-.62.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                </svg>
+            </a>
+            <a href="https://m.me/61581531204112" target="_blank" class="fab-item facebook" data-label="Message Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V1.74c-.25-.03-1.08-.1-2.09-.1-2.12 0-3.5 1.29-3.5 3.66v2.5h-2.25v4H12v10.5h2V13.5z" />
+                </svg>
+            </a>
+            <a href="https://wa.me/260773465434?text=Hello%20CREST%20HN%2C%20I'm%20interested%20in%20your%20services%21"
+                target="_blank" class="fab-item whatsapp" data-label="WhatsApp">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
+            </a>
+        </div>
+        <button class="fab-toggle" onclick="this.parentElement.classList.toggle('active')">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+        </button>
+    </div>
+</body>
+
+</html>

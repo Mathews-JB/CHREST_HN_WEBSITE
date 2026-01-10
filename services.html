@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | CREST HN TECH</title>
+    <meta name="description"
+        content="Our services include high-end laptop sales, system repairs, software installation, and IT consultancy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "gsap": "https://unpkg.com/gsap@3.12.5/index.js"
+            }
+        }
+    </script>
+    <style>
+        .pill {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .pill:hover {
+            background: rgba(0, 243, 255, 0.2);
+            border-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .pill.active {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+        }
+
+        .service-list {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .service-list.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        function switchTab(element, tabId) {
+            const card = element.closest('.service-card-v2');
+
+            // Update Pills
+            card.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
+
+            // Update Lists
+            card.querySelectorAll('.service-list').forEach(l => l.classList.remove('active'));
+            card.querySelector(`.service-list[data-tab="${tabId}"]`).classList.add('active');
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Premium Cyber Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-circle-1"></div>
+            <div class="loader-circle-2"></div>
+            <div class="loader-line"></div>
+            <div class="loader-logo-wrap">
+                <img src="assets/logo.jpg" alt="CREST Logo">
+            </div>
+        </div>
+        <div class="loader-text-container">
+            <div class="loader-status">SYSTEM INITIALIZATION</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar" id="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const bar = document.getElementById('loader-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    document.body.classList.add('loaded');
+                    setTimeout(() => {
+                        const preloader = document.getElementById('preloader');
+                        if (preloader) preloader.style.display = 'none';
+                    }, 800);
+                } else {
+                    width += Math.random() * 5;
+                    if (width > 100) width = 100;
+                    if (bar) bar.style.width = width + '%';
+                }
+            }, 50);
+        });
+    </script>
+    <div id="canvas-container"></div>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="CREST HN Logo" class="nav-logo">
+            <span class="logo-text">CREST HN</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html" class="active">Services</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+        <a href="about.html" onclick="toggleMobileMenu()">About Us</a>
+        <a href="services.html" onclick="toggleMobileMenu()">Services</a>
+        <a href="events.html" onclick="toggleMobileMenu()">Events</a>
+        <a href="projects.html" onclick="toggleMobileMenu()">Projects</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+        <button onclick="toggleMobileMenu()"
+            style="background:none; border:none; color:#fff; font-size:3rem; margin-top:2rem;">&times;</button>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            const btn = document.querySelector('.mobile-menu-btn');
+            btn.innerHTML = nav.classList.contains('active') ? ' ' : '☰';
+        }
+    </script>
+    <main id="content">
+        <section class="hero" style="height: 60vh; min-height: 400px;">
+            <p class="hero-subtitle reveal-text">Innovative Solutions</p>
+            <h1 class="hero-title reveal-text">OUR <span class="highlight">SERVICES</span></h1>
+        </section>
+
+        <!-- New Premium Services Grid -->
+        <section style="padding: 5% 5% 10% 5%;">
+            <div class="grid-2" style="gap: 2rem;">
+
+                <!-- 1. Website Design -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z" />
+                            </svg>
+                        </div>
+                        <h3>Website Design</h3>
+                    </div>
+                    <p class="service-desc">
+                        We create modern, responsive, and user-friendly websites that represent your brand
+                        professionally and drive business growth. Whether you need a simple business website, e-commerce
+                        platform, or corporate portal, our designs are crafted to engage visitors and convert them into
+                        customers.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'use-cases')">Use Cases</span>
+                        <span class="pill" onclick="switchTab(this, 'benefits')">Benefits</span>
+                        <span class="pill" onclick="switchTab(this, 'industries')">Industries</span>
+                    </div>
+                    <ul class="service-list active" data-tab="use-cases">
+                        <li>Corporate websites for professional service firms</li>
+                        <li>E-commerce stores for retail businesses</li>
+                        <li>Portfolio websites for creatives and consultants</li>
+                        <li>Landing pages for marketing campaigns</li>
+                        <li>Restaurant and hospitality websites</li>
+                    </ul>
+                    <ul class="service-list" data-tab="benefits">
+                        <li>24/7 Global digital presence</li>
+                        <li>Automated lead generation & sales</li>
+                        <li>Brand credibility and professional image</li>
+                        <li>Search engine visibility (SEO)</li>
+                        <li>Seamless customer engagement</li>
+                    </ul>
+                    <ul class="service-list" data-tab="industries">
+                        <li>Retail & E-commerce</li>
+                        <li>Healthcare & Private Clinics</li>
+                        <li>Real Estate & Construction</li>
+                        <li>Education & Legal Firms</li>
+                        <li>Logistics & Transportation</li>
+                    </ul>
+                </div>
+
+                <!-- 2. App Development -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
+                            </svg>
+                        </div>
+                        <h3>App Development</h3>
+                    </div>
+                    <p class="service-desc">
+                        Transform your business idea into a powerful mobile application. We develop custom Android and
+                        iOS apps that deliver seamless user experiences and help you reach customers wherever they are.
+                        From concept to launch, we handle every aspect of mobile app development.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'use-cases')">Use Cases</span>
+                        <span class="pill" onclick="switchTab(this, 'benefits')">Benefits</span>
+                        <span class="pill" onclick="switchTab(this, 'platforms')">Platforms</span>
+                    </div>
+                    <ul class="service-list active" data-tab="use-cases">
+                        <li>Internal business operation tools</li>
+                        <li>Customer loyalty & membership apps</li>
+                        <li>E-learning and training portals</li>
+                        <li>Service booking & scheduling systems</li>
+                        <li>Real-time tracking and logistics</li>
+                    </ul>
+                    <ul class="service-list" data-tab="benefits">
+                        <li>Direct communication channel to users</li>
+                        <li>Offline availability for core features</li>
+                        <li>Improved user engagement & retention</li>
+                        <li>Enhanced data collection & analytics</li>
+                        <li>Competitive edge in mobile-first markets</li>
+                    </ul>
+                    <ul class="service-list" data-tab="platforms">
+                        <li>Native iOS (Swift) Development</li>
+                        <li>Native Android (Kotlin) Development</li>
+                        <li>Cross-Platform (Flutter/React Native)</li>
+                        <li>Progressive Web Apps (PWA)</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Corporate Branding & Graphics -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z" />
+                            </svg>
+                        </div>
+                        <h3>Corporate Branding & Graphics</h3>
+                    </div>
+                    <p class="service-desc">
+                        Make a lasting impression with professional branding and graphic design services. We create
+                        cohesive visual identities that communicate your brand's values and differentiate you from
+                        competitors. From logos to complete brand guidelines.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'services')">Services</span>
+                        <span class="pill" onclick="switchTab(this, 'benefits')">Benefits</span>
+                        <span class="pill" onclick="switchTab(this, 'process')">Process</span>
+                    </div>
+                    <ul class="service-list active" data-tab="services">
+                        <li>Custom Logo Design & Visual Identity</li>
+                        <li>Company Profiles & Annual Reports</li>
+                        <li>Business Cards & Professional Stationery</li>
+                        <li>Marketing Flyers & Digital Banners</li>
+                        <li>Complete Brand Manuals & Guidelines</li>
+                    </ul>
+                    <ul class="service-list" data-tab="benefits">
+                        <li>Consistent brand recognition</li>
+                        <li>Higher perceived value for services</li>
+                        <li>Emotional connection with customers</li>
+                        <li>Unity across all marketing channels</li>
+                        <li>Stronger competitive differentiation</li>
+                    </ul>
+                    <ul class="service-list" data-tab="process">
+                        <li>Concept Discovery & Brand Audit</li>
+                        <li>Strategy & Messaging Development</li>
+                        <li>Design Iteration & Feedback</li>
+                        <li>Final Asset Packaging & Delivery</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Digital Training & Courses -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.89 12.55L12 15.89l6.11-3.34c.66.36 1.08 1.06 1.08 1.82V19l-7.19 3.92L4.81 19v-4.63c0-.76.42-1.46 1.08-1.82z" />
+                            </svg>
+                        </div>
+                        <h3>Digital Training & Courses</h3>
+                    </div>
+                    <p class="service-desc">
+                        Empower your team with digital skills training and professional development courses. We offer
+                        comprehensive training programs in web development, digital marketing, system usage, and more.
+                        Hands-on, practical learning experiences.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'programs')">Programs</span>
+                        <span class="pill" onclick="switchTab(this, 'benefits')">Benefits</span>
+                        <span class="pill" onclick="switchTab(this, 'outcomes')">Outcomes</span>
+                    </div>
+                    <ul class="service-list active" data-tab="programs">
+                        <li>Website Management & CMS training</li>
+                        <li>Custom Software User Onboarding</li>
+                        <li>Digital Marketing & SEO fundamentals</li>
+                        <li>Cybersecurity Awareness for Staff</li>
+                        <li>Data Analytics & Reporting Essentials</li>
+                    </ul>
+                    <ul class="service-list" data-tab="benefits">
+                        <li>Reduced reliance on external technical support</li>
+                        <li>Increased employee productivity & efficiency</li>
+                        <li>Maximized ROI on tech investments</li>
+                        <li>Empowered team with modern digital skills</li>
+                        <li>Future-proofed workforce</li>
+                    </ul>
+                    <ul class="service-list" data-tab="outcomes">
+                        <li>Certified technical competency</li>
+                        <li>Operational independence</li>
+                        <li>Strategic implementation capability</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Business Email Solutions -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            </svg>
+                        </div>
+                        <h3>Business Email Solutions</h3>
+                    </div>
+                    <p class="service-desc">
+                        Establish professional credibility with custom business email addresses using your own domain
+                        name. We set up and manage secure, reliable email systems that enhance your brand image and
+                        ensure smooth communication.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'features')">Features</span>
+                        <span class="pill" onclick="switchTab(this, 'benefits')">Benefits</span>
+                        <span class="pill" onclick="switchTab(this, 'setup')">Setup</span>
+                    </div>
+                    <ul class="service-list active" data-tab="features">
+                        <li>Branded Domain (@yourcompany.com)</li>
+                        <li>Large Storage & Attachment capacity</li>
+                        <li>Premium Spam & Malware protection</li>
+                        <li>Mobile Sync & Push Notifications</li>
+                        <li>Shared Calendars & Global Address Lists</li>
+                    </ul>
+                    <ul class="service-list" data-tab="benefits">
+                        <li>Instantly verified professional credibility</li>
+                        <li>Secure internal & external communication</li>
+                        <li>Platform independence (Outlook/Web/Mobile)</li>
+                        <li>99.9% Uptime and hardware reliability</li>
+                    </ul>
+                    <ul class="service-list" data-tab="setup">
+                        <li>Domain Registration & DNS config</li>
+                        <li>Mail Server migration & setup</li>
+                        <li>Client software (Outlook) configuration</li>
+                    </ul>
+                </div>
+
+                <!-- 6. Software & Systems Development -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M22 13h-8v-2h8v2zm0-6h-8v2h8V7zm-8 10h8v-2h-8v2zm-2-8v6c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2z" />
+                            </svg>
+                        </div>
+                        <h3>Software & Systems Development</h3>
+                    </div>
+                    <p class="service-desc">
+                        We build custom software solutions and management systems that streamline your business
+                        operations and boost productivity. Our enterprise-grade systems are designed specifically for
+                        your workflows.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'systems')">Systems</span>
+                        <span class="pill" onclick="switchTab(this, 'benefits')">Benefits</span>
+                        <span class="pill" onclick="switchTab(this, 'tech')">Technology</span>
+                    </div>
+                    <ul class="service-list active" data-tab="systems">
+                        <li>ERP & Business Management Software</li>
+                        <li>HRM & Payroll Automation Systems</li>
+                        <li>School & Hospital Management Portals</li>
+                        <li>Inventory & Point of Sale (POS) Solutions</li>
+                        <li>Custom CRM & Customer Portals</li>
+                    </ul>
+                    <ul class="service-list" data-tab="benefits">
+                        <li>Elimination of manual entry errors</li>
+                        <li>Real-time operational visibility</li>
+                        <li>Centralized data for better decision making</li>
+                        <li>Scalable architecture for company growth</li>
+                        <li>Automated financial/inventory reporting</li>
+                    </ul>
+                    <ul class="service-list" data-tab="tech">
+                        <li>Scalable Cloud Infrastructures</li>
+                        <li>Secure Database architecture (SQL/NoSQL)</li>
+                        <li>Robust API integrations (REST/GraphQL)</li>
+                    </ul>
+                </div>
+
+                <!-- 7. Network Security (Existing) -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                            </svg>
+                        </div>
+                        <h3>Network Security</h3>
+                    </div>
+                    <p class="service-desc">
+                        In an era of digital threats, security is not an option—it's a necessity. We provide
+                        military-grade encryption standards, network unlocking, and secure infrastructure setup for
+                        businesses of all sizes.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'core')">Core Security</span>
+                        <span class="pill" onclick="switchTab(this, 'infrastructure')">Infrastructure</span>
+                        <span class="pill" onclick="switchTab(this, 'audit')">Audit</span>
+                    </div>
+                    <ul class="service-list active" data-tab="core">
+                        <li>Network Device & Router Unlocking</li>
+                        <li>Encrypted Data Communication protocols</li>
+                        <li>Firewall Configuration & IDS setup</li>
+                        <li>Mobile Phone & SIM Unlocking services</li>
+                    </ul>
+                    <ul class="service-list" data-tab="infrastructure">
+                        <li>Secure Router & Gateway Installation</li>
+                        <li>Server Hardware Repair & maintenance</li>
+                        <li>Redundant Backup & DR solutions</li>
+                        <li>Endpoint Security protection</li>
+                    </ul>
+                    <ul class="service-list" data-tab="audit">
+                        <li>Full Network Penetration Testing</li>
+                        <li>Security Vulnerability assessments</li>
+                        <li>Compliance & Policy hardening</li>
+                    </ul>
+                </div>
+
+                <!-- 8. Digital Marketing -->
+                <div class="service-card-v2 reveal-text">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79s7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0s-3.51-8.72 0-12.2a9.135 9.135 0 0112.72 0l2.64-2.71V10.12z" />
+                            </svg>
+                        </div>
+                        <h3>Digital Marketing</h3>
+                    </div>
+                    <p class="service-desc">
+                        Visibility is currency. We escalate your brand's presence through strategic Page Boosting and
+                        targeted digital campaigns designed to convert visitors into loyal customers.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'strategy')">Strategy</span>
+                        <span class="pill" onclick="switchTab(this, 'ads')">Ad Management</span>
+                        <span class="pill" onclick="switchTab(this, 'seo')">SEO</span>
+                    </div>
+                    <ul class="service-list active" data-tab="strategy">
+                        <li>Social Media Page Performance Boosting</li>
+                        <li>Brand Voice & Storytelling strategy</li>
+                        <li>Competitor Analysis & Market mapping</li>
+                        <li>Content Calendars & Lifecycle marketing</li>
+                    </ul>
+                    <ul class="service-list" data-tab="ads">
+                        <li>Facebook & Instagram Paid Ad campaigns</li>
+                        <li>Google Ads & Search Engine Marketing</li>
+                        <li>Precision Demographic targeting</li>
+                        <li>Ad Copywriting & A/B performance testing</li>
+                    </ul>
+                    <ul class="service-list" data-tab="seo">
+                        <li>Local SEO for Zambian high-search intent</li>
+                        <li>On-page technical optimization</li>
+                        <li>Keyword research & Backlink strategy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- NEW: Strategic Business Advisory Section -->
+            <div style="margin-top: 6rem; text-align: center;">
+                <h2 style="font-size: 3rem; margin-bottom: 2rem;" class="reveal-text">STRATEGIC <span
+                        class="highlight">ADVISORY</span></h2>
+                <p style="color: #888; max-width: 800px; margin: 0 auto 4rem auto; font-size: 1.1rem;"
+                    class="reveal-text">
+                    Innovation without strategy is just noise. We provide the architectural guidance needed to turn
+                    technological advancements into sustainable business dominance.
+                </p>
+            </div>
+
+            <div class="grid-2" style="gap: 2rem;">
+                <!-- 9. Product-Market Fit -->
+                <div class="service-card-v2 reveal-text" style="border-left: 4px solid #ff00ff;">
+                    <div class="service-header">
+                        <div class="service-icon" style="border-color: #ff00ff; background: rgba(255,0,255,0.1);">
+                            <svg viewBox="0 0 24 24" style="fill: #ff00ff;">
+                                <path
+                                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z" />
+                            </svg>
+                        </div>
+                        <h3>Product-Market Fit</h3>
+                    </div>
+                    <p class="service-desc">
+                        Validating your value proposition against market demand. We help you refine your products until
+                        they resonate perfectly with the Zambian and global markets, ensuring every feature serves a
+                        real customer need.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'validation')">Validation</span>
+                        <span class="pill" onclick="switchTab(this, 'feedback')">User Feedback</span>
+                        <span class="pill" onclick="switchTab(this, 'pivoting')">Pivoting Strategy</span>
+                    </div>
+                    <ul class="service-list active" data-tab="validation">
+                        <li>Market Demand Analysis & Trends</li>
+                        <li>Competitive Landscape mapping</li>
+                        <li>Feature/Pain-point alignment</li>
+                        <li>Demographic feasibility studies</li>
+                    </ul>
+                    <ul class="service-list" data-tab="feedback">
+                        <li>User Persona Development</li>
+                        <li>A/B Landing page validation</li>
+                        <li>Surveys & Focus group analysis</li>
+                        <li>Closed Beta testing feedback loops</li>
+                    </ul>
+                    <ul class="service-list" data-tab="pivoting">
+                        <li>Minimum Viable Product (MVP) Refinement</li>
+                        <li>Feature Prioritization Matrix</li>
+                        <li>Strategic Directional assessment</li>
+                    </ul>
+                </div>
+
+                <!-- 10. Revenue Streams -->
+                <div class="service-card-v2 reveal-text" style="border-left: 4px solid #00ff88;">
+                    <div class="service-header">
+                        <div class="service-icon" style="border-color: #00ff88; background: rgba(0,255,136,0.1);">
+                            <svg viewBox="0 0 24 24" style="fill: #00ff88;">
+                                <path
+                                    d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
+                            </svg>
+                        </div>
+                        <h3>Revenue Streams</h3>
+                    </div>
+                    <p class="service-desc">
+                        Designing and optimizing diverse income models. From subscription-based software to
+                        transactional e-commerce, we engineer financial architectures that maximize long-term
+                        profitability and business stability.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'pricing')">Pricing Models</span>
+                        <span class="pill" onclick="switchTab(this, 'monetization')">Monetization Plans</span>
+                        <span class="pill" onclick="switchTab(this, 'roi')">ROI Optimization</span>
+                    </div>
+                    <ul class="service-list active" data-tab="pricing">
+                        <li>Tiered Pricing Strategy Design</li>
+                        <li>Value-based pricing architecture</li>
+                        <li>Psychological pricing optimization</li>
+                        <li>Freemium to Premium conversion paths</li>
+                    </ul>
+                    <ul class="service-list" data-tab="monetization">
+                        <li>Subscription & SaaS Model Design</li>
+                        <li>Transactional & Marketplace modeling</li>
+                        <li>Ancillary Revenue stream exploration</li>
+                        <li>Ad-supported & Data monetization plans</li>
+                    </ul>
+                    <ul class="service-list" data-tab="roi">
+                        <li>Cost-Benefit analysis & mapping</li>
+                        <li>Lifetime Value (LTV) forecasting</li>
+                        <li>Customer Acquisition Cost (CAC) reduction</li>
+                    </ul>
+                </div>
+
+                <!-- 11. Customer Acquisition & Retention -->
+                <div class="service-card-v2 reveal-text" style="border-left: 4px solid #ff6b00;">
+                    <div class="service-header">
+                        <div class="service-icon" style="border-color: #ff6b00; background: rgba(255,107,0,0.1);">
+                            <svg viewBox="0 0 24 24" style="fill: #ff6b00;">
+                                <path
+                                    d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                            </svg>
+                        </div>
+                        <h3>Acquisition & Retention</h3>
+                    </div>
+                    <p class="service-desc">
+                        Advanced strategies for winning clients and keeping them for life. We leverage tech-driven
+                        marketing and CRM systems to reduce churn, lower acquisition costs, and increase customer
+                        lifetime value.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'crm')">CRM Integration</span>
+                        <span class="pill" onclick="switchTab(this, 'churn')">Churn Reduction</span>
+                        <span class="pill" onclick="switchTab(this, 'loyalty')">Loyalty Programs</span>
+                    </div>
+                    <ul class="service-list active" data-tab="crm">
+                        <li>Salesforce/HubSpot Implementation</li>
+                        <li>Automated lead scoring pipelines</li>
+                        <li>Unified Customer Profile dashboards</li>
+                        <li>Sales force automation & tracking</li>
+                    </ul>
+                    <ul class="service-list" data-tab="churn">
+                        <li>Data-Driven Retention Loops</li>
+                        <li>Automated Re-engagement campaigns</li>
+                        <li>Customer satisfaction (NPS) tracking</li>
+                        <li>Predictive churn modeling & alerts</li>
+                    </ul>
+                    <ul class="service-list" data-tab="loyalty">
+                        <li>Growth Hacking Workflows</li>
+                        <li>Reward system architecture</li>
+                        <li>Referral program mechanics</li>
+                        <li>Client Behavior Mapping</li>
+                    </ul>
+                </div>
+
+                <!-- 12. Scalability -->
+                <div class="service-card-v2 reveal-text" style="border-left: 4px solid #00f3ff;">
+                    <div class="service-header">
+                        <div class="service-icon" style="border-color: #00f3ff; background: rgba(0,243,255,0.1);">
+                            <svg viewBox="0 0 24 24" style="fill: #00f3ff;">
+                                <path
+                                    d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z" />
+                            </svg>
+                        </div>
+                        <h3>Business Scalability</h3>
+                    </div>
+                    <p class="service-desc">
+                        Structuring your business and tech stack for hyper-growth. We build systems that grow with you,
+                        ensuring performance remains peak even as your laboratory, user base, or service demand
+                        explodes.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'tech')">Tech Infrastructure</span>
+                        <span class="pill" onclick="switchTab(this, 'process')">Process Automation</span>
+                        <span class="pill" onclick="switchTab(this, 'resilience')">System Resilience</span>
+                    </div>
+                    <ul class="service-list active" data-tab="tech">
+                        <li>Cloud Infrastructure Auto-Scaling</li>
+                        <li>Microservices Architecture migration</li>
+                        <li>Global server distribution & CDN</li>
+                        <li>Database optimization for high loads</li>
+                    </ul>
+                    <ul class="service-list" data-tab="process">
+                        <li>Operational Bottleneck Analysis</li>
+                        <li>Staff workflow digitization</li>
+                        <li>Automated quality control systems</li>
+                        <li>Inter-departmental data sync</li>
+                    </ul>
+                    <ul class="service-list" data-tab="resilience">
+                        <li>Load Testing & Performance Tuning</li>
+                        <li>Disaster Recovery (DR) protocols</li>
+                        <li>Distributed system monitoring</li>
+                    </ul>
+                </div>
+
+                <!-- 13. Funding & Financial MGMT -->
+                <div class="service-card-v2 reveal-text" style="border-left: 4px solid #ffcc00;">
+                    <div class="service-header">
+                        <div class="service-icon" style="border-color: #ffcc00; background: rgba(255,204,0,0.1);">
+                            <svg viewBox="0 0 24 24" style="fill: #ffcc00;">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                            </svg>
+                        </div>
+                        <h3>Financial Management</h3>
+                    </div>
+                    <p class="service-desc">
+                        Bridging the gap between innovation and capital. We provide expert guidance on capital raising,
+                        cash flow optimization, and fiscal responsibility through robust financial planning and investor
+                        readiness.
+                    </p>
+                    <div class="pill-container">
+                        <span class="pill active" onclick="switchTab(this, 'investor')">Investor Readiness</span>
+                        <span class="pill" onclick="switchTab(this, 'capital')">Capital Raising</span>
+                        <span class="pill" onclick="switchTab(this, 'fiscal')">Fiscal Strategy</span>
+                    </div>
+                    <ul class="service-list active" data-tab="investor">
+                        <li>Pitch Deck & Financial Model Creation</li>
+                        <li>Cap Table management guidance</li>
+                        <li>Due Diligence data room preparation</li>
+                        <li>Investor Relationship Management</li>
+                    </ul>
+                    <ul class="service-list" data-tab="capital">
+                        <li>Venture Capital (VC) networking</li>
+                        <li>Angel Investor presentation prep</li>
+                        <li>Grant & Debt financing strategy</li>
+                        <li>Equity distribution frameworks</li>
+                    </ul>
+                    <ul class="service-list" data-tab="fiscal">
+                        <li>Operational Expense (OpEx) Optimization</li>
+                        <li>Strategic Budget Forecasting</li>
+                        <li>Revenue Runway & Cash flow monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Highlights Section -->
+        <section style="padding: 0 5% 5% 5%;">
+            <h2 class="reveal-text" style="font-size: 3rem; margin-bottom: 3rem; text-align: center;">VISUAL <span
+                    class="highlight">EXPERTISE</span></h2>
+            <div class="grid-3" style="gap: 1.5rem;">
+                <!-- UI/UX Highlight -->
+                <div class="reveal-text"
+                    style="border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;">
+                    <img src="assets/pexels-divinetechygirl-1181354.jpg" alt="Website Design"
+                        style="width: 100%; height: 300px; object-fit: cover; display: block;">
+                    <div
+                        style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                        <h4 style="color: var(--accent-color); font-size: 1.2rem;">UI/UX EXCELLENCE</h4>
+                    </div>
+                </div>
+
+                <!-- Brand Highlight -->
+                <div class="reveal-text"
+                    style="border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;">
+                    <img src="assets/pexels-djordje-petrovic-590080-2102416.jpg" alt="Branding"
+                        style="width: 100%; height: 300px; object-fit: cover; display: block;">
+                    <div
+                        style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                        <h4 style="color: #ff69b4; font-size: 1.2rem;">BRAND IDENTITY</h4>
+                    </div>
+                </div>
+
+                <!-- Product-Market Fit Highlight (NEW GENERATED IMAGE) -->
+                <div class="reveal-text"
+                    style="border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;">
+                    <img src="assets/pexels-joshsorenson-1714208.jpg" alt="Strategic Strategy"
+                        style="width: 100%; height: 300px; object-fit: cover; display: block;">
+                    <div
+                        style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                        <h4 style="color: #ff00ff; font-size: 1.2rem;">STRATEGIC GROWTH</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="info-section">
+            <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: 3rem; margin-bottom: 2rem;">READY TO <span class="highlight">INNOVATE?</span></h2>
+                <div class="grid-2" style="text-align: left; gap: 4rem;">
+                    <div>
+                        <p style="color: #aaa; margin-bottom: 2rem; font-size: 1.2rem;">
+                            Partner with CREST HN to transform your digital presence. From software to hardware, we
+                            provide the technical foundation for your success.
+                        </p>
+                        <a href="contact.html" class="cta-button">Get Started Now</a>
+                    </div>
+                    <div>
+                        <div
+                            style="background: rgba(10,10,10,0.5); padding: 2rem; border-left: 4px solid var(--accent-color);">
+                            <h4 style="margin-bottom: 1rem;">Direct Contact</h4>
+                            <a href="tel:0777771064" class="contact-link">Call: 0777 771 064</a>
+                            <a href="https://wa.me/260773465434" class="contact-link">WhatsApp: +260 77 346 5434</a>
+                            <a href="mailto:cresthntech@gmail.com?subject=Contact%20CREST%20HN&body=Hello%20CREST%20HN%20Team%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Please%20get%20back%20to%20me.%0A%0AThank%20you."
+                                class="contact-link">cresthntech@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="padding: 4rem 5%; background: #000; border-top: 1px solid #222; margin-top: 4rem;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">CREST HN</h4>
+                    <p style="color: #666;">Tech & Innovations. Zambia.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Services</h4>
+                    <ul style="list-style: none; color: #888;">
+                        <li>Website & App Dev</li>
+                        <li>Corporate Branding</li>
+                        <li>Digital Training</li>
+                        <li>Business Email</li>
+                        <li>Systems Development</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Connect</h4>
+
+                    <a href="https://wa.me/260773465434?text=Hello%20CREST%20HN%2C%20I'm%20interested%20in%20your%20tech%20services%20and%20innovations.%20Can%20we%20discuss%3F"
+                        target="_blank" class="contact-link">
+                        <svg class="contact-icon" viewBox="0 0 24 24"
+                            style="width: 20px; height: 20px; fill: currentColor; margin-right: 10px; vertical-align: middle;">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        WhatsApp: 0773 465 434
+                    </a>
+
+                    <a href="tel:0777771064" class="contact-link">
+                        <svg class="contact-icon" viewBox="0 0 24 24"
+                            style="width: 20px; height: 20px; fill: currentColor; margin-right: 10px; vertical-align: middle;">
+                            <path
+                                d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.49-5.48-4.14-6.97-6.97l1.97-1.57c.26-.26.35-.62.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                        </svg>
+                        Call: 0777 771 064
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem; color: #444; font-size: 0.8rem;">
+                &copy; 2024 CREST HN TECH AND INNOVATIONS. All Rights Reserved.
+            </div>
+        </footer>
+    </main>
+    <!-- Main Logic: Inlined to prevent CORS errors when opening local files -->
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+        import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+        import gsap from 'https://unpkg.com/gsap@3.12.5/index.js';
+
+        class SceneManager {
+            constructor(container) {
+                this.container = container;
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+
+                this.init();
+                this.createObjects();
+                this.animate();
+                this.setupResize();
+                this.setupScroll();
+
+                // Trigger entrance
+                this.introAnimation();
+            }
+
+            init() {
+                // Scene
+                this.scene = new THREE.Scene();
+                // Fog for depth
+                this.scene.fog = new THREE.FogExp2(0x050505, 0.002);
+
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
+                this.camera.position.z = this.width < 768 ? 8 : 5;
+
+                // Renderer
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                this.renderer.setSize(this.width, this.height);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.renderer.setClearColor(0x000000, 0); // Transparent
+                this.container.appendChild(this.renderer.domElement);
+
+                // Lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                this.scene.add(ambientLight);
+
+                const pointLight = new THREE.PointLight(0x00f3ff, 2, 50);
+                pointLight.position.set(2, 3, 4);
+                this.scene.add(pointLight);
+
+                const pointLight2 = new THREE.PointLight(0xff00ff, 2, 50);
+                pointLight2.position.set(-2, 3, -4);
+                this.scene.add(pointLight2);
+            }
+
+            createObjects() {
+                // --- High-Tech Laptop Group ---
+                this.laptopGroup = new THREE.Group();
+
+                // Materials - Updated for "Spline" Glossiness
+                const chassisMat = new THREE.MeshStandardMaterial({
+                    color: 0x0a0a0a,
+                    roughness: 0.1, // Glossier
+                    metalness: 0.9,
+                });
+                const keyMat = new THREE.MeshStandardMaterial({
+                    color: 0x050505,
+                    roughness: 0.3,
+                    metalness: 0.7
+                });
+                const screenBorderMat = new THREE.MeshStandardMaterial({
+                    color: 0x080808,
+                    roughness: 0.1,
+                    metalness: 0.9
+                });
+
+                // 1. Base
+                const baseGeo = new THREE.BoxGeometry(3, 0.1, 2);
+                this.laptopBase = new THREE.Mesh(baseGeo, chassisMat);
+                this.laptopGroup.add(this.laptopBase);
+
+                // 2. Keyboard
+                const keyGroup = new THREE.Group();
+                const keyGeo = new THREE.BoxGeometry(0.18, 0.05, 0.18);
+                for (let x = -1.2; x <= 1.2; x += 0.22) {
+                    for (let z = -0.5; z <= 0.5; z += 0.22) {
+                        const key = new THREE.Mesh(keyGeo, keyMat);
+                        key.position.set(x, 0.06, z);
+                        keyGroup.add(key);
+                    }
+                }
+                this.laptopBase.add(keyGroup);
+
+                // 3. Screen
+                this.screenGroup = new THREE.Group();
+                this.screenGroup.position.set(0, 0.05, -1);
+
+                const screenChassisGeo = new THREE.BoxGeometry(3, 2, 0.1);
+                const screenChassis = new THREE.Mesh(screenChassisGeo, screenBorderMat);
+                screenChassis.position.set(0, 1, 0);
+                this.screenGroup.add(screenChassis);
+
+                const displayGeo = new THREE.PlaneGeometry(2.8, 1.8);
+                const displayMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, side: THREE.DoubleSide });
+                this.laptopDisplay = new THREE.Mesh(displayGeo, displayMat);
+                this.laptopDisplay.position.set(0, 1, 0.06);
+                this.screenGroup.add(this.laptopDisplay);
+
+                this.screenGroup.rotation.x = 0;
+                this.laptopGroup.add(this.screenGroup);
+                this.scene.add(this.laptopGroup);
+
+                // --- Additional 3D Elements ---
+                this.createBackgroundLaptops();
+                this.createRobotics();
+
+                // --- Environment ---
+                const gridHelper = new THREE.GridHelper(60, 60, 0x222222, 0x050505);
+                gridHelper.position.y = -2;
+                this.scene.add(gridHelper);
+
+                // Particles
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particlesCount = 800;
+                const posArray = new Float32Array(particlesCount * 3);
+                for (let i = 0; i < particlesCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 30;
+                }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.03,
+                    color: 0x00f3ff,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                });
+                this.particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                this.scene.add(this.particlesMesh);
+            }
+
+            createBackgroundLaptops() {
+                this.backgroundLaptops = [];
+                const geometry = new THREE.BoxGeometry(1.5, 0.05, 1);
+                const material = new THREE.MeshStandardMaterial({ color: 0x222222, wireframe: true });
+
+                for (let i = 0; i < 5; i++) {
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.x = (Math.random() - 0.5) * 15;
+                    mesh.position.y = (Math.random() - 0.5) * 8;
+                    mesh.position.z = -2 - Math.random() * 5;
+                    mesh.rotation.x = Math.random() * Math.PI;
+                    mesh.rotation.y = Math.random() * Math.PI;
+                    this.scene.add(mesh);
+                    this.backgroundLaptops.push(mesh);
+                }
+            }
+
+            createRobotics() {
+                this.droneGroup = new THREE.Group();
+                const coreGeo = new THREE.IcosahedronGeometry(0.6, 1);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0xff00ff, emissive: 0xff00ff, emissiveIntensity: 2,
+                    roughness: 0.1, metalness: 1.0, flatShading: true // Glossier
+                });
+                this.droneCore = new THREE.Mesh(coreGeo, coreMat);
+                this.droneGroup.add(this.droneCore);
+
+                const ringGeo = new THREE.TorusGeometry(1.0, 0.05, 8, 50);
+                const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.8 });
+                this.droneRing1 = new THREE.Mesh(ringGeo, ringMat);
+                this.droneGroup.add(this.droneRing1);
+
+                const ringGeo2 = new THREE.TorusGeometry(1.4, 0.02, 8, 50);
+                this.droneRing2 = new THREE.Mesh(ringGeo2, ringMat);
+                this.droneGroup.add(this.droneRing2);
+
+                const droneX = 0;
+                const droneY = this.width < 768 ? 3 : 1.5;
+                this.droneGroup.position.set(droneX, droneY, -1);
+                this.scene.add(this.droneGroup);
+            }
+
+            introAnimation() {
+                if (!this.laptopGroup) return;
+                this.laptopGroup.position.z = -5;
+                this.laptopGroup.rotation.x = 0.5;
+                this.screenGroup.rotation.x = Math.PI / 2;
+
+                gsap.to(this.laptopGroup.position, { z: 0, duration: 2, ease: "power3.out" });
+                gsap.to(this.screenGroup.rotation, { x: -0.5, duration: 2.5, delay: 0.5, ease: "power2.inOut" });
+                gsap.to(this.laptopGroup.rotation, { x: 0, duration: 2, ease: "power2.out" });
+            }
+
+            setupResize() {
+                window.addEventListener('resize', this.onWindowResize.bind(this));
+                this.mouseX = 0;
+                this.mouseY = 0;
+                window.addEventListener('mousemove', (event) => {
+                    this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
+            }
+
+            setupScroll() {
+                this.scrollY = 0;
+                window.addEventListener('scroll', () => {
+                    this.scrollY = window.scrollY;
+                });
+            }
+
+            onWindowResize() {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                this.camera.aspect = this.width / this.height;
+                this.camera.updateProjectionMatrix();
+                if (this.width < 768) {
+                    this.camera.position.z = 10;
+                    if (this.droneGroup) this.droneGroup.position.set(0, 3, -1);
+                } else {
+                    this.camera.position.z = 5;
+                    if (this.droneGroup) this.droneGroup.position.set(0, 1.5, -1);
+                }
+            }
+
+            animate = () => {
+                requestAnimationFrame(this.animate);
+                const time = Date.now() * 0.001;
+
+                if (this.laptopGroup) {
+                    this.targetRotationX = this.mouseY * 0.5;
+                    this.targetRotationY = this.mouseX * 0.5;
+                    this.laptopGroup.rotation.x += (this.targetRotationX - this.laptopGroup.rotation.x) * 0.05;
+                    this.laptopGroup.rotation.y += (this.targetRotationY - this.laptopGroup.rotation.y) * 0.05;
+
+                    const scrollFactor = this.scrollY * 0.002;
+                    this.laptopGroup.position.z = -scrollFactor * 2;
+                    this.laptopGroup.rotation.x += scrollFactor * 0.5;
+                    this.laptopGroup.position.y = Math.sin(time) * 0.1 + (scrollFactor * 0.5);
+                }
+
+                if (this.backgroundLaptops) {
+                    this.backgroundLaptops.forEach((laptop, i) => {
+                        laptop.rotation.x += 0.01;
+                        laptop.rotation.y += 0.005;
+                        laptop.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
+                    });
+                }
+
+                if (this.droneGroup) {
+                    this.droneGroup.rotation.y = Date.now() * 0.0005;
+                    this.droneGroup.position.y = 2 + Math.sin(Date.now() * 0.002) * 0.5;
+                    this.droneRing1.rotation.x = Date.now() * 0.002;
+                    this.droneRing1.rotation.y = Date.now() * 0.001;
+                    this.droneRing2.rotation.z = -Date.now() * 0.0015;
+                }
+
+                if (this.particlesMesh) {
+                    this.particlesMesh.rotation.y = -Date.now() * 0.0001;
+                    this.particlesMesh.rotation.x += (this.mouseY * 0.2 - this.particlesMesh.rotation.x) * 0.02;
+                    this.particlesMesh.position.y = this.scrollY * 0.001;
+                }
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvasContainer = document.getElementById('canvas-container');
+            const sceneManager = new SceneManager(canvasContainer);
+        });
+    </script>
+    <!-- Expanding Floating Contact Menu -->
+    <div class="fab-container">
+        <div class="fab-menu">
+            <a href="mailto:cresthntech@gmail.com?subject=Inquiry%20to%20CREST%20HN&body=Hello%20CREST%20HN%20Team%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Please%20get%20back%20to%20me.%0A%0AThank%20you."
+                class="fab-item email" data-label="Email Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+            </a>
+            <a href="tel:0777771064" class="fab-item call" data-label="Call Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.49-5.48-4.14-6.97-6.97l1.97-1.57c.26-.26.35-.62.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                </svg>
+            </a>
+            <a href="https://m.me/61581531204112" target="_blank" class="fab-item facebook" data-label="Message Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V1.74c-.25-.03-1.08-.1-2.09-.1-2.12 0-3.5 1.29-3.5 3.66v2.5h-2.25v4H12v10.5h2V13.5z" />
+                </svg>
+            </a>
+            <a href="https://wa.me/260773465434?text=Hello%20CREST%20HN%2C%20I'm%20interested%20in%20your%20services%21"
+                target="_blank" class="fab-item whatsapp" data-label="WhatsApp">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
+            </a>
+        </div>
+        <button class="fab-toggle" onclick="this.parentElement.classList.toggle('active')">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+        </button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | CREST HN TECH AND INNOVATIONS</title>
+    <meta name="description"
+        content="Discover upcoming tech events, workshops, and conferences hosted by CREST HN. Join us in shaping Zambia's digital future.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "gsap": "https://unpkg.com/gsap@3.12.5/index.js"
+            }
+        }
+    </script>
+    <style>
+        /* Events Page Specific Styles */
+        .events-hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .events-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .events-hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-color) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .events-hero p {
+            font-size: 1.3rem;
+            color: #aaa;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .events-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5% 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, var(--accent-color), transparent);
+            transform: translateX(-50%);
+        }
+
+        .event-card {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .event-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .event-card:nth-child(odd) .event-content {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .event-content {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .event-content:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 60px rgba(0, 243, 255, 0.3);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .event-content:hover .event-image {
+            transform: scale(1.05);
+        }
+
+        .event-date {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .event-location {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-description {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px var(--accent-color);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px var(--accent-color);
+            }
+
+            50% {
+                box-shadow: 0 0 40px var(--accent-color);
+            }
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .events-hero h1 {
+                font-size: 3rem;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .event-content {
+                width: 100%;
+                margin-left: 2rem !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-dot {
+                left: 0;
+            }
+
+            .event-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Premium Cyber Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-circle-1"></div>
+            <div class="loader-circle-2"></div>
+            <div class="loader-line"></div>
+            <div class="loader-logo-wrap">
+                <img src="assets/logo.jpg" alt="CREST Logo">
+            </div>
+        </div>
+        <div class="loader-text-container">
+            <div class="loader-status">SYSTEM INITIALIZATION</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar" id="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const bar = document.getElementById('loader-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    document.body.classList.add('loaded');
+                    setTimeout(() => {
+                        const preloader = document.getElementById('preloader');
+                        if (preloader) preloader.style.display = 'none';
+                    }, 800);
+                } else {
+                    width += Math.random() * 5;
+                    if (width > 100) width = 100;
+                    if (bar) bar.style.width = width + '%';
+                }
+            }, 50);
+        });
+    </script>
+    <div id="canvas-container"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="CREST HN Logo" class="nav-logo">
+            <span class="logo-text">CREST HN</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="events.html" class="active">Events</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+        <a href="about.html" onclick="toggleMobileMenu()">About Us</a>
+        <a href="services.html" onclick="toggleMobileMenu()">Services</a>
+        <a href="events.html" onclick="toggleMobileMenu()">Events</a>
+        <a href="projects.html" onclick="toggleMobileMenu()">Projects</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+        <button onclick="toggleMobileMenu()"
+            style="background:none; border:none; color:#fff; font-size:3rem; margin-top:2rem;">&times;</button>
+    </div>
+
+    <main id="content">
+        <section class="events-hero">
+            <h1>UPCOMING EVENTS</h1>
+            <p>Join us in shaping Zambia's digital future. Explore our workshops, conferences, and tech meetups.</p>
+        </section>
+
+        <div class="events-container">
+            <div class="timeline" id="eventsTimeline">
+                <!-- Events will be loaded here dynamically -->
+                <div class="no-events" id="noEvents" style="display: none;">
+                    <p>No upcoming events at the moment. Check back soon!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="padding: 4rem 5%; background: #000; border-top: 1px solid #222; margin-top: 4rem;">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">CREST HN</h4>
+                <p style="color: #666;">Tech & Innovations. Zambia.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Services</h4>
+                <ul style="list-style: none; color: #888;">
+                    <li>Website & App Dev</li>
+                    <li>Corporate Branding</li>
+                    <li>Digital Training</li>
+                    <li>Business Email</li>
+                    <li>Systems Development</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Connect</h4>
+
+                <a href="https://wa.me/260773465434?text=Hello%20CREST%20HN%2C%20I'm%20interested%20in%20your%20upcoming%20events.%20Can%20you%20provide%20more%20details%3F"
+                    target="_blank" class="contact-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                    WhatsApp: 0773 465 434
+                </a>
+
+                <a href="tel:0777771064" class="contact-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.49-5.48-4.14-6.97-6.97l1.97-1.57c.26-.26.35-.62.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                    </svg>
+                    Call: 0777 771 064
+                </a>
+
+                <a href="mailto:cresthntech@gmail.com?subject=Events%20Inquiry%20to%20CREST%20HN&body=Hello%20CREST%20HN%20Team%2C%0A%0AI%20am%20interested%20in%20your%20upcoming%20events.%20Please%20provide%20more%20details.%0A%0AThank%20you."
+                    class="contact-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                    cresthntech@gmail.com
+                </a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem; color: #444; font-size: 0.8rem;">
+            &copy; 2024 CREST HN TECH AND INNOVATIONS. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Expanding Floating Contact Menu -->
+    <div class="fab-container">
+        <div class="fab-menu">
+            <a href="mailto:cresthntech@gmail.com?subject=Inquiry%20to%20CREST%20HN&body=Hello%20CREST%20HN%20Team%2C%0A%0AI%20am%20interested%20in%20your%20services.%20Please%20get%20back%20to%20me.%0A%0AThank%20you."
+                class="fab-item email" data-label="Email Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+            </a>
+            <a href="tel:0777771064" class="fab-item call" data-label="Call Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.49-5.48-4.14-6.97-6.97l1.97-1.57c.26-.26.35-.62.24-1.01-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                </svg>
+            </a>
+            <a href="https://m.me/61581531204112" target="_blank" class="fab-item facebook" data-label="Message Us">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V1.74c-.25-.03-1.08-.1-2.09-.1-2.12 0-3.5 1.29-3.5 3.66v2.5h-2.25v4H12v10.5h2V13.5z" />
+                </svg>
+            </a>
+            <a href="https://wa.me/260773465434?text=Hello%20CREST%20HN%2C%20I'm%20interested%20in%20your%20services%21"
+                target="_blank" class="fab-item whatsapp" data-label="WhatsApp">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
+            </a>
+        </div>
+        <button class="fab-toggle" onclick="this.parentElement.classList.toggle('active')">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            const btn = document.querySelector('.mobile-menu-btn');
+            btn.innerHTML = nav.classList.contains('active') ? ' ' : '☰';
+        }
+    </script>
+
+    <!-- Main 3D Scene Logic -->
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+        import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+        import gsap from 'https://unpkg.com/gsap@3.12.5/index.js';
+
+        class SceneManager {
+            constructor(container) {
+                this.container = container;
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+
+                this.init();
+                this.createObjects();
+                this.animate();
+                this.setupResize();
+                this.setupScroll();
+
+                // Trigger entrance
+                this.introAnimation();
+            }
+
+            init() {
+                // Scene
+                this.scene = new THREE.Scene();
+                // Fog for depth
+                this.scene.fog = new THREE.FogExp2(0x050505, 0.002);
+
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
+                this.camera.position.z = this.width < 768 ? 8 : 5;
+
+                // Renderer
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                this.renderer.setSize(this.width, this.height);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.renderer.setClearColor(0x000000, 0); // Transparent
+                this.container.appendChild(this.renderer.domElement);
+
+                // Lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                this.scene.add(ambientLight);
+
+                const pointLight = new THREE.PointLight(0x00f3ff, 2, 50);
+                pointLight.position.set(2, 3, 4);
+                this.scene.add(pointLight);
+
+                const pointLight2 = new THREE.PointLight(0xff00ff, 2, 50);
+                pointLight2.position.set(-2, 3, -4);
+                this.scene.add(pointLight2);
+            }
+
+            createObjects() {
+                // --- High-Tech Laptop Group ---
+                this.laptopGroup = new THREE.Group();
+
+                // Materials
+                const chassisMat = new THREE.MeshStandardMaterial({
+                    color: 0x0a0a0a,
+                    roughness: 0.2,
+                    metalness: 0.9,
+                });
+                const keyMat = new THREE.MeshStandardMaterial({
+                    color: 0x050505,
+                    roughness: 0.5,
+                    metalness: 0.5
+                });
+                const screenBorderMat = new THREE.MeshStandardMaterial({
+                    color: 0x080808,
+                    roughness: 0.2,
+                    metalness: 0.8
+                });
+
+                // 1. Base
+                const baseGeo = new THREE.BoxGeometry(3, 0.1, 2);
+                this.laptopBase = new THREE.Mesh(baseGeo, chassisMat);
+                this.laptopGroup.add(this.laptopBase);
+
+                // 2. Keyboard
+                const keyGroup = new THREE.Group();
+                const keyGeo = new THREE.BoxGeometry(0.18, 0.05, 0.18);
+                for (let x = -1.2; x <= 1.2; x += 0.22) {
+                    for (let z = -0.5; z <= 0.5; z += 0.22) {
+                        const key = new THREE.Mesh(keyGeo, keyMat);
+                        key.position.set(x, 0.06, z);
+                        keyGroup.add(key);
+                    }
+                }
+                this.laptopBase.add(keyGroup);
+
+                // 3. Screen
+                this.screenGroup = new THREE.Group();
+                this.screenGroup.position.set(0, 0.05, -1);
+
+                const screenChassisGeo = new THREE.BoxGeometry(3, 2, 0.1);
+                const screenChassis = new THREE.Mesh(screenChassisGeo, screenBorderMat);
+                screenChassis.position.set(0, 1, 0);
+                this.screenGroup.add(screenChassis);
+
+                const displayGeo = new THREE.PlaneGeometry(2.8, 1.8);
+                const displayMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, side: THREE.DoubleSide });
+                this.laptopDisplay = new THREE.Mesh(displayGeo, displayMat);
+                this.laptopDisplay.position.set(0, 1, 0.06);
+                this.screenGroup.add(this.laptopDisplay);
+
+                this.screenGroup.rotation.x = 0;
+                this.laptopGroup.add(this.screenGroup);
+                this.scene.add(this.laptopGroup);
+
+                // --- Additional 3D Elements ---
+                this.createBackgroundLaptops();
+                this.createRobotics();
+
+                // --- Environment ---
+                const gridHelper = new THREE.GridHelper(60, 60, 0x222222, 0x050505);
+                gridHelper.position.y = -2;
+                this.scene.add(gridHelper);
+
+                // Particles
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particlesCount = 800;
+                const posArray = new Float32Array(particlesCount * 3);
+                for (let i = 0; i < particlesCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 30;
+                }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.03,
+                    color: 0x00f3ff,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                });
+                this.particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                this.scene.add(this.particlesMesh);
+            }
+
+            createBackgroundLaptops() {
+                this.backgroundLaptops = [];
+                const geometry = new THREE.BoxGeometry(1.5, 0.05, 1);
+                const material = new THREE.MeshStandardMaterial({ color: 0x222222, wireframe: true });
+
+                for (let i = 0; i < 5; i++) {
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.x = (Math.random() - 0.5) * 15;
+                    mesh.position.y = (Math.random() - 0.5) * 8;
+                    mesh.position.z = -2 - Math.random() * 5;
+                    mesh.rotation.x = Math.random() * Math.PI;
+                    mesh.rotation.y = Math.random() * Math.PI;
+                    this.scene.add(mesh);
+                    this.backgroundLaptops.push(mesh);
+                }
+            }
+
+            createRobotics() {
+                this.droneGroup = new THREE.Group();
+                const coreGeo = new THREE.IcosahedronGeometry(0.6, 1);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0xff00ff, emissive: 0xff00ff, emissiveIntensity: 2,
+                    roughness: 0.2, metalness: 1.0, flatShading: true
+                });
+                this.droneCore = new THREE.Mesh(coreGeo, coreMat);
+                this.droneGroup.add(this.droneCore);
+
+                const ringGeo = new THREE.TorusGeometry(1.0, 0.05, 8, 50);
+                const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.8 });
+                this.droneRing1 = new THREE.Mesh(ringGeo, ringMat);
+                this.droneGroup.add(this.droneRing1);
+
+                const ringGeo2 = new THREE.TorusGeometry(1.4, 0.02, 8, 50);
+                this.droneRing2 = new THREE.Mesh(ringGeo2, ringMat);
+                this.droneGroup.add(this.droneRing2);
+
+                this.droneGroup.position.set(3.5, 1.5, -1);
+                this.scene.add(this.droneGroup);
+            }
+
+            introAnimation() {
+                if (!this.laptopGroup) return;
+                this.laptopGroup.position.z = -5;
+                this.laptopGroup.rotation.x = 0.5;
+                this.screenGroup.rotation.x = Math.PI / 2;
+
+                gsap.to(this.laptopGroup.position, { z: 0, duration: 2, ease: "power3.out" });
+                gsap.to(this.screenGroup.rotation, { x: -0.5, duration: 2.5, delay: 0.5, ease: "power2.inOut" });
+                gsap.to(this.laptopGroup.rotation, { x: 0, duration: 2, ease: "power2.out" });
+            }
+
+            setupResize() {
+                window.addEventListener('resize', this.onWindowResize.bind(this));
+                this.mouseX = 0;
+                this.mouseY = 0;
+                window.addEventListener('mousemove', (event) => {
+                    this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
+            }
+
+            setupScroll() {
+                this.scrollY = 0;
+                window.addEventListener('scroll', () => {
+                    this.scrollY = window.scrollY;
+                });
+            }
+
+            onWindowResize() {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                this.camera.aspect = this.width / this.height;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(this.width, this.height);
+
+                // Adjust camera for mobile to keep objects in view
+                if (this.width < 768) {
+                    this.camera.position.z = 8;
+                } else {
+                    this.camera.position.z = 5;
+                }
+            }
+
+            animate = () => {
+                requestAnimationFrame(this.animate);
+                const time = Date.now() * 0.001;
+
+                if (this.laptopGroup) {
+                    this.targetRotationX = this.mouseY * 0.5;
+                    this.targetRotationY = this.mouseX * 0.5;
+                    this.laptopGroup.rotation.x += (this.targetRotationX - this.laptopGroup.rotation.x) * 0.05;
+                    this.laptopGroup.rotation.y += (this.targetRotationY - this.laptopGroup.rotation.y) * 0.05;
+
+                    const scrollFactor = this.scrollY * 0.002;
+                    this.laptopGroup.position.z = -scrollFactor * 2;
+                    this.laptopGroup.rotation.x += scrollFactor * 0.5;
+                    this.laptopGroup.position.y = Math.sin(time) * 0.1 + (scrollFactor * 0.5);
+                }
+
+                if (this.backgroundLaptops) {
+                    this.backgroundLaptops.forEach((laptop, i) => {
+                        laptop.rotation.x += 0.01;
+                        laptop.rotation.y += 0.005;
+                        laptop.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
+                    });
+                }
+
+                if (this.droneGroup) {
+                    this.droneGroup.rotation.y = Date.now() * 0.0005;
+                    this.droneGroup.position.y = 2 + Math.sin(Date.now() * 0.002) * 0.5;
+                    this.droneRing1.rotation.x = Date.now() * 0.002;
+                    this.droneRing1.rotation.y = Date.now() * 0.001;
+                    this.droneRing2.rotation.z = -Date.now() * 0.0015;
+                }
+
+                if (this.particlesMesh) {
+                    this.particlesMesh.rotation.y = -Date.now() * 0.0001;
+                    this.particlesMesh.rotation.x += (this.mouseY * 0.2 - this.particlesMesh.rotation.x) * 0.02;
+                    this.particlesMesh.position.y = this.scrollY * 0.001;
+                }
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvasContainer = document.getElementById('canvas-container');
+            const sceneManager = new SceneManager(canvasContainer);
+        });
+    </script>
+
+    <script>
+
+        // Fetch and display events
+        async function loadEvents() {
+            try {
+                const response = await fetch('php/api/events.php');
+                const data = await response.json();
+
+                const timeline = document.getElementById('eventsTimeline');
+                const noEvents = document.getElementById('noEvents');
+
+                if (data.success && data.events.length > 0) {
+                    timeline.innerHTML = '';
+                    data.events.forEach((event, index) => {
+                        const eventCard = document.createElement('div');
+                        eventCard.className = 'event-card';
+
+                        const eventDate = new Date(event.event_date);
+                        const formattedDate = eventDate.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+
+                        eventCard.innerHTML = `
+                            <div class="timeline-dot"></div>
+                            <div class="event-content">
+                                ${event.video_url ? `
+                                    <video src="${event.video_url}" class="event-image" autoplay muted loop playsinline controls style="object-fit: contain; background: #000;"></video>
+                                ` : (event.image_url ? `<img src="${event.image_url}" alt="${event.title}" class="event-image" onerror="this.src='assets/placeholder-event.jpg'">` : '')}
+                                <div class="event-date">${formattedDate}</div>
+                                <h3 class="event-title">${event.title}</h3>
+                                <div class="event-location">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                    ${event.location}
+                                </div>
+                                <p class="event-description">${event.description}</p>
+                            </div>
+                        `;
+
+                        timeline.appendChild(eventCard);
+
+                        // Trigger animation with delay
+                        setTimeout(() => {
+                            eventCard.classList.add('visible');
+                        }, index * 200);
+                    });
+                } else {
+                    noEvents.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading events:', error);
+                document.getElementById('noEvents').style.display = 'block';
+            }
+        }
+
+        // Load events on page load
+        document.addEventListener('DOMContentLoaded', loadEvents);
+    </script>
+</body>
+
+</html>
